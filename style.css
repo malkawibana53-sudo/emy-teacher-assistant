@@ -1,0 +1,315 @@
+
+/* الألوان الأساسية */
+:root {
+    --pink: #D99BAF;
+    --pink-dark: #A96680;
+    --pink-light: #F5DDE5;
+    --beige: #F2E6D5;
+    --cream: #FFFAF5;
+    --text: #59434D;
+    --muted: #927D83;
+    --white: #FFFFFF;
+}
+
+/* إعدادات الصفحة */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Tahoma, Arial, sans-serif;
+    background: var(--beige);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.8;
+}
+
+/* الشريط العلوي */
+.header {
+    background: linear-gradient(120deg, #F7E4E8, #FFF9F2);
+    padding: 25px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    box-shadow: 0 3px 15px #9b71821a;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo span {
+    font-size: 42px;
+    color: var(--pink-dark);
+}
+
+.logo h1 {
+    font-size: 23px;
+    color: var(--pink-dark);
+}
+
+.logo p {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.welcome {
+    text-align: center;
+}
+
+.welcome h2 {
+    font-size: 25px;
+    color: var(--text);
+}
+
+.welcome p {
+    color: var(--muted);
+}
+
+.save-status {
+    background: var(--pink-light);
+    color: var(--pink-dark);
+    padding: 9px 18px;
+    border-radius: 25px;
+    font-size: 14px;
+}
+
+/* محتوى الصفحة */
+.container {
+    max-width: 1250px;
+    margin: 40px auto;
+    padding: 0 25px;
+}
+
+.section-title {
+    margin-bottom: 25px;
+    color: var(--pink-dark);
+    font-size: 24px;
+}
+
+/* البطاقات */
+.tools {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.tool-card {
+    background: var(--cream);
+    border: 1px solid #EAD1D8;
+    border-radius: 22px;
+    padding: 25px 18px;
+    text-align: center;
+    box-shadow: 0 5px 15px #9b718215;
+    transition: 0.25s ease;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 22px #9b718225;
+}
+
+.tool-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.tool-card h3 {
+    color: var(--pink-dark);
+    font-size: 19px;
+    margin-bottom: 10px;
+}
+
+.tool-card p {
+    color: var(--muted);
+    font-size: 14px;
+    min-height: 55px;
+}
+
+/* الأزرار */
+button {
+    border: none;
+    background: var(--pink-dark);
+    color: white;
+    padding: 11px 24px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 18px;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #8F526C;
+}
+
+/* رسالة المعلمة */
+.message-card {
+    background: linear-gradient(135deg, #FFF9F4, #F8E5E9);
+    border: 1px solid #E8C8D2;
+    border-radius: 23px;
+    padding: 30px;
+    margin-top: 35px;
+    box-shadow: 0 5px 18px #9b718215;
+}
+
+.message-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.message-heading span {
+    font-size: 30px;
+    color: var(--pink-dark);
+}
+
+.message-heading h2 {
+    color: var(--pink-dark);
+    font-size: 21px;
+}
+
+.message-heading small {
+    background: var(--beige);
+    padding: 5px 13px;
+    border-radius: 20px;
+    color: var(--text);
+}
+
+.message-card p {
+    font-size: 16px;
+    line-height: 2.1;
+    color: var(--text);
+}
+
+/* أسفل الصفحة */
+footer {
+    background: #E9D4D9;
+    color: var(--pink-dark);
+    padding: 17px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* توافق مع الهاتف */
+@media (max-width: 900px) {
+    .tools {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 550px) {
+    .tools {
+        grid-template-columns: 1fr;
+    }
+
+    .header {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+}
+
+
+/* أزرار التقارير */
+.report-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 18px 0;
+}
+
+.report-actions button {
+    margin-top: 0;
+}
+
+
+/* EMY - تنسيقات إنشاء الأنشطة */
+#activities-area label { display:block; margin:15px 0 6px; color:var(--pink-dark); font-weight:bold; }
+#activities-area input, #activities-area select, #activities-area textarea { width:100%; padding:12px 14px; border:1px solid #DDBFC9; border-radius:12px; background:#FFFAF5; color:var(--text); font:inherit; margin-bottom:8px; }
+#activities-area textarea { resize:vertical; min-height:90px; }
+.activity-actions { display:flex; flex-wrap:wrap; gap:10px; margin:15px 0 25px; }
+.activity-actions button { margin-top:0; }
+.secondary-button { background:#BBA8AE; }
+.secondary-button:hover { background:#8F7C83; }
+.activity-list-title { color:var(--pink-dark); margin:25px 0 12px; }
+.activity-saved-card { margin:15px 0; }
+.activity-saved-card button { margin-inline-end:8px; }
+.activity-preview { margin-top:25px; padding:22px; border:1px dashed #D99BAF; border-radius:16px; background:#FFFAF5; }
+.print-activity-heading { text-align:center; border-bottom:2px solid #D99BAF; padding-bottom:15px; }
+.print-activity-heading h1 { color:#A96680; }
+.student-details { display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; margin:25px 0; }
+.activity-body { white-space:normal; min-height:180px; border:1px solid #EAD1D8; border-radius:10px; padding:18px; }
+.activity-footer { text-align:center; margin-top:30px; color:#A96680; }
+@media print { .no-print { display:none !important; } }
+
+
+/* EMY - الجداول العامة وجداول نتائج الامتحانات */
+.table-mode-actions, .table-actions {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:16px 0;
+}
+.table-mode-actions button, .table-actions button { margin-top:0; }
+.table-panel {
+    margin-top:22px;
+    padding:22px;
+    border:1px solid #E8C8D2;
+    border-radius:17px;
+    background:#FFFAF5;
+}
+.table-panel h3, .table-list-title { color:var(--pink-dark); margin-bottom:10px; }
+.table-setup-grid {
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:12px;
+    margin-top:15px;
+}
+#tables-area label { display:block; margin:12px 0 6px; color:var(--pink-dark); font-weight:bold; }
+#tables-area input, #tables-area select {
+    width:100%; padding:11px 13px; border:1px solid #DDBFC9;
+    border-radius:10px; background:#fff; color:var(--text); font:inherit;
+}
+.table-scroll { width:100%; overflow-x:auto; margin:18px 0; }
+.emy-data-table { width:100%; border-collapse:collapse; min-width:520px; }
+.emy-data-table th, .emy-data-table td {
+    border:1px solid #DDBFC9; padding:7px; text-align:center; min-width:110px;
+}
+.emy-data-table th { background:#F5DDE5; color:#7E4C60; }
+.emy-data-table td { background:#fff; }
+.emy-data-table input {
+    min-width:95px; border:1px solid #EAD1D8; border-radius:7px;
+    padding:8px; font:inherit; text-align:center;
+}
+.table-summary {
+    display:flex; flex-wrap:wrap; gap:12px; margin:18px 0;
+}
+.table-summary span {
+    background:#F5DDE5; border-radius:12px; padding:9px 14px;
+}
+.saved-table-card {
+    border:1px solid #EAD1D8; border-radius:13px;
+    padding:14px; margin:12px 0; background:#fff;
+}
+.saved-table-card button { margin-inline-start:7px; }
+.table-empty { color:var(--muted); padding:12px 0; }
+@media(max-width:650px) {
+    .table-setup-grid { grid-template-columns:1fr; }
+    .table-panel { padding:15px; }
+}
+@media print {
+    .no-print, .table-mode-actions, .table-actions { display:none !important; }
+}

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مساعد المعلمة</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <span>♡</span>
+            <div>
+                <h1>Teacher's Assistant</h1>
+                <p>مساعد معلمتي</p>
+            </div>
+        </div>
+
+        
+        <div class="save-status">
+            ✓ جاهز للعمل
+        </div>
+    </header>
+
+    <main class="container">
+
+        <h2 class="section-title">أدواتك التعليمية</h2>
+
+        <section class="tools">
+    <article class="tool-card">
+        <div class="tool-icon">📝</div>
+        <h3>تصحيح الامتحانات</h3>
+        <p>إدخال العلامات وحساب النتائج بسهولة ودقة.</p>
+        <button onclick="showExamSetup()">ابدئي الآن</button>
+    </article>
+
+    <article class="tool-card">
+        <div class="tool-icon">📊</div>
+        <h3>تحليل النتائج</h3>
+        <p>معرفة مستوى الطالبات ونقاط القوة والاحتياج.</p>
+       <button onclick="showAnalysis()">عرض التحليل</button>
+    </article>
+
+    <article class="tool-card">
+        <div class="tool-icon">📚</div>
+        <h3>إنشاء الأنشطة</h3>
+        <p>إعداد أوراق عمل وأنشطة تعليمية.</p>
+        <button onclick="showActivities()">ابدئي الآن</button>
+    </article>
+
+    <article class="tool-card">
+        <div class="tool-icon">📁</div>
+        <h3>الجداول والتقارير</h3>
+        <p>جداول نتائج وتقارير منظمة وقابلة للطباعة.</p>
+        <button onclick="showTables()">عرض الجداول والتقارير</button>
+    </article>
+</section>
+
+<section id="exam-setup" class="message-card" style="display:none;">
+
+    <h2>إعداد امتحان جديد</h2>
+    <p>أدخلي معلومات الامتحان لتبدئي عملية التصحيح.</p>
+
+    <label for="exam-name">اسم الامتحان</label>
+    <input
+        id="exam-name"
+        type="text"
+        placeholder="مثلاً: امتحان الوحدة الأولى"
+    >
+
+    <label for="exam-class">الصف والشعبة</label>
+    <input
+        id="exam-class"
+        type="text"
+        placeholder="مثلاً: الصف العاشر أ"
+    >
+
+    <label for="exam-date">تاريخ الامتحان (اختياري)</label>
+    <input
+        id="exam-date"
+        type="date"
+    >
+
+    <label for="question-count">عدد الأسئلة</label>
+    <input
+        id="question-count"
+        type="number"
+        min="1"
+        max="100"
+        placeholder="مثلاً: 10"
+    >
+
+    <button onclick="createQuestions()">
+        تحديد علامات الأسئلة
+    </button>
+
+    <div id="questions-area"></div>
+<div id="student-entry-area"></div>
+</section>
+
+<section id="saved-exams-area" class="message-card">
+    <h2>الامتحانات المحفوظة</h2>
+    <div id="saved-exams-list"></div>
+</section>
+
+<section id="analysis-area" class="message-card" style="display:none;">
+
+    <h2>تحليل نتائج الامتحانات</h2>
+
+    <p>اختاري الامتحان الذي تريدين تحليل نتائجه.</p>
+
+    <div class="report-actions">
+        <button onclick="exportCurrentExamExcel()">تصدير Excel</button>
+        <button onclick="printCurrentExamReport()">طباعة التقرير / حفظ PDF</button>
+    </div>
+
+    <div id="analysis-exams-list"></div>
+
+    <div id="analysis-results"></div>
+
+</section>
+
+<section id="activities-area" class="message-card" style="display:none;">
+    <h2>إنشاء الأنشطة التعليمية</h2>
+    <p>أنشئي ورقة عمل أو نشاطًا تعليميًا، واحفظيه لتعديله أو طباعته لاحقًا.</p>
+
+    <div id="activity-editor">
+        <input type="hidden" id="activity-id">
+
+        <label for="activity-title">عنوان النشاط</label>
+        <input id="activity-title" type="text" placeholder="مثلاً: مراجعة الوحدة الأولى">
+
+        <label for="activity-subject">المادة</label>
+        <input id="activity-subject" type="text" placeholder="مثلاً: اللغة الإنجليزية">
+
+        <label for="activity-grade">الصف والشعبة</label>
+        <input id="activity-grade" type="text" placeholder="مثلاً: الصف العاشر أ">
+
+        <label for="activity-type">نوع النشاط</label>
+        <select id="activity-type">
+            <option value="ورقة عمل">ورقة عمل</option>
+            <option value="نشاط صفي">نشاط صفي</option>
+            <option value="واجب منزلي">واجب منزلي</option>
+            <option value="مراجعة">مراجعة</option>
+            <option value="اختبار قصير">اختبار قصير</option>
+        </select>
+
+        <label for="activity-instructions">التعليمات</label>
+        <textarea id="activity-instructions" rows="3" placeholder="اكتبي تعليمات النشاط... "></textarea>
+
+        <label for="activity-content">محتوى النشاط والأسئلة</label>
+        <textarea id="activity-content" rows="10" placeholder="اكتبي الأسئلة أو فقرات النشاط هنا... "></textarea>
+
+        <div class="activity-actions">
+            <button onclick="saveActivity()">حفظ النشاط</button>
+            <button type="button" class="secondary-button" onclick="previewActivity()">معاينة</button>
+            <button type="button" class="secondary-button" onclick="clearActivityForm()">نشاط جديد</button>
+        </div>
+    </div>
+
+    <div id="activity-preview" class="activity-preview" style="display:none;"></div>
+    <h3 class="activity-list-title">الأنشطة المحفوظة</h3>
+    <div id="saved-activities-list"></div>
+</section>
+
+
+<section id="tables-area" class="message-card" style="display:none;">
+    <h2>الجداول والتقارير</h2>
+    <p>أنشئي جداولك الخاصة أو استخرجي جدولًا تلقائيًا من نتائج امتحان محفوظ.</p>
+
+    <div class="table-mode-actions">
+        <button type="button" onclick="showGeneralTable()">إنشاء جدول عام</button>
+        <button type="button" class="secondary-button" onclick="showExamTable()">جدول نتائج امتحان</button>
+    </div>
+
+    <div id="general-table-area" class="table-panel" style="display:none;">
+        <h3>الجداول العامة</h3>
+        <p>حددي عدد الصفوف والأعمدة، ثم اكتبي عناوين الأعمدة والبيانات.</p>
+
+        <div class="table-setup-grid">
+            <div>
+                <label for="custom-table-title">عنوان الجدول</label>
+                <input id="custom-table-title" type="text" placeholder="مثلاً: متابعة الواجبات">
+            </div>
+            <div>
+                <label for="custom-table-rows">عدد الصفوف</label>
+                <input id="custom-table-rows" type="number" min="1" max="100" value="5">
+            </div>
+            <div>
+                <label for="custom-table-cols">عدد الأعمدة</label>
+                <input id="custom-table-cols" type="number" min="1" max="20" value="4">
+            </div>
+        </div>
+        <div class="table-actions">
+            <button type="button" onclick="buildCustomTable()">إنشاء / إعادة بناء الجدول</button>
+            <button type="button" class="secondary-button" onclick="addCustomRow()">إضافة صف</button>
+            <button type="button" class="secondary-button" onclick="addCustomColumn()">إضافة عمود</button>
+            <button type="button" class="secondary-button" onclick="removeCustomRow()">حذف آخر صف</button>
+            <button type="button" class="secondary-button" onclick="removeCustomColumn()">حذف آخر عمود</button>
+        </div>
+
+        <div id="custom-table-editor" class="table-scroll"></div>
+        <div class="table-actions">
+            <button type="button" onclick="saveCustomTable()">حفظ الجدول</button>
+            <button type="button" class="secondary-button" onclick="printCustomTable()">طباعة / حفظ PDF</button>
+            <button type="button" class="secondary-button" onclick="exportCustomTableExcel()">تصدير Excel</button>
+            <button type="button" class="secondary-button" onclick="newCustomTable()">جدول جديد</button>
+        </div>
+
+        <h4 class="table-list-title">الجداول المحفوظة</h4>
+        <div id="saved-custom-tables"></div>
+    </div>
+
+    <div id="exam-table-area" class="table-panel" style="display:none;">
+        <h3>جدول نتائج الامتحانات</h3>
+        <p>اختاري امتحانًا محفوظًا لعرض أسماء الطالبات وعلاماتهن وترتيبهن.</p>
+        <label for="exam-table-select">الامتحان</label>
+        <select id="exam-table-select" onchange="renderExamResultsTable()">
+            <option value="">اختاري امتحانًا محفوظًا</option>
+        </select>
+        <div id="exam-table-output"></div>
+        <div class="table-actions">
+            <button type="button" onclick="printExamResultsTable()">طباعة / حفظ PDF</button>
+            <button type="button" class="secondary-button" onclick="exportExamResultsExcel()">تصدير Excel</button>
+        </div>
+    </div>
+</section>
+
+        <section class="message-card">
+            <div class="message-heading">
+                <span>♡</span>
+                <h2> إلى مس إيمان</h2>
+                <small>قراءة فقط</small>
+            </div>
+
+            <p id="teacher-message">
+
+    
+    مس، بحبك يا منيرة دربي الدراسي،
+    لله دركِ يا ...
+</p>
+        </section>
+
+    </main>
+
+    <footer>
+        مساعد المعلمة ♡
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
