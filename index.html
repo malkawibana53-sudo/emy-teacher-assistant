@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مساعد المعلمة</title>
+    <title>EMY — مساعد معلمتي</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -19,14 +19,26 @@
         </div>
 
         
-        <div class="save-status">
-            ✓ جاهز للعمل
-        </div>
+        <div id="emy-save-status" class="save-status" role="status" aria-live="polite">✓ جاهز للعمل</div>
     </header>
 
     <main class="container">
+    <div class="emy-layout">
+      <aside id="emy-sidebar" class="emy-sidebar">
+        <div class="sidebar-brand"><span>♡</span><div><strong>EMY</strong><small>مساعد معلمتي</small></div></div>
+        <nav class="sidebar-nav" aria-label="القائمة الرئيسية">
+          <button class="sidebar-link active" data-page="home-page" onclick="openEMYPage('home-page')"><span>⌂</span> الرئيسية</button>
+          <button class="sidebar-link" data-page="exam-page" onclick="showExamSetup()"><span>✎</span> تصحيح الامتحانات</button>
+          <button class="sidebar-link" data-page="saved-exams-page" onclick="showSavedExamsPage()"><span>▤</span> الامتحانات المحفوظة</button>
+          <button class="sidebar-link" data-page="analysis-page" onclick="showAnalysis()"><span>▥</span> تحليل النتائج</button>
+          <button class="sidebar-link" data-page="activities-page" onclick="showActivities()"><span>▧</span> الأنشطة التعليمية</button>
+          <button class="sidebar-link" data-page="tables-page" onclick="showTables()"><span>▦</span> الجداول والتقارير</button>
+        </nav>
+        <div class="sidebar-footer">EMY ♡</div>
+      </aside>
+      <div class="emy-workspace">
 
-        <h2 class="section-title">أدواتك التعليمية</h2>
+        <section id="home-page" class="emy-page"><h2 class="section-title">أدواتك التعليمية</h2>
 
         <section class="tools">
     <article class="tool-card">
@@ -57,10 +69,25 @@
         <button onclick="showTables()">عرض الجداول والتقارير</button>
     </article>
 </section>
+        <section class="message-card">
+            <div class="message-heading">
+                <span>♡</span>
+                <h2> إلى مس إيمان</h2>
+                <small>قراءة فقط</small>
+            </div>
 
+            <p id="teacher-message">يُدمي فؤادي أن أراكِ مُتعبةً تحت هوانِ أوراقٍ لا تَسْتَحِقُّ من عنائِكِ شيئاً، ويَشُقُّ عليَّ أن ألمحَ طيفَ الإرهاقِ يغتالُ سَكينةَ قلبِكِ من غبارِ العملِ المكدَّس. وما زلتُ أتمنى لو أستطيعُ أن أحملَ عنكِ بعضَ أثقالِكِ، وأُبددَ عناءَ أيامِكِ الشاقّة، ليكونَ في ذلك عوناً لكِ وراحةً. لله دَرُّكِ يا ...</p>
+        </section>
+</section>
+
+<section id="exam-page" class="emy-page" style="display:none;">
+  <div class="section-tabs" id="exam-tabs">
+    <button class="inner-tab active" onclick="openExamSubtab('setup')">إعداد الامتحان</button>
+    <button class="inner-tab" onclick="openExamSubtab('grading')">إدخال العلامات والتصحيح</button>
+  </div>
 <section id="exam-setup" class="message-card" style="display:none;">
 
-    <h2>إعداد امتحان جديد</h2>
+    <div id="exam-setup-panel"><h2>إعداد امتحان جديد</h2>
     <p>أدخلي معلومات الامتحان لتبدئي عملية التصحيح.</p>
 
     <label for="exam-name">اسم الامتحان</label>
@@ -83,6 +110,29 @@
         type="date"
     >
 
+    <div class="roster-manager">
+        <h3>قائمة الطالبات</h3>
+        <p>الصقي الأسماء، اسمًا في كل سطر، أو استوردي ملف Excel. يمكنك حفظ القائمة لإعادة استخدامها.</p>
+        <label for="roster-select">قائمة محفوظة</label>
+        <select id="roster-select" onchange="loadSelectedRoster()">
+            <option value="">اختاري قائمة محفوظة (اختياري)</option>
+        </select>
+        <label for="roster-names">أسماء الطالبات</label>
+        <textarea id="roster-names" rows="5" placeholder="اسم الطالبة الأولى&#10;اسم الطالبة الثانية&#10;اسم الطالبة الثالثة"></textarea>
+        <div class="roster-actions">
+            <button type="button" onclick="saveRoster()">حفظ قائمة الطالبات</button>
+            <label class="file-import-label" for="roster-excel">استيراد Excel</label>
+            <input id="roster-excel" type="file" accept=".xlsx,.xls,.csv" onchange="importRosterExcel(event)">
+        </div>
+        <div id="roster-status" class="helper-text"></div>
+    </div>
+
+    <label>طريقة التصحيح</label>
+    <div class="grading-mode-options">
+        <label><input type="radio" name="grading-mode" value="individual" checked> تصحيح فردي (طالبة تلو الأخرى)</label>
+        <label><input type="radio" name="grading-mode" value="bulk"> تصحيح جماعي (جدول علامات لجميع الطالبات)</label>
+    </div>
+
     <label for="question-count">عدد الأسئلة</label>
     <input
         id="question-count"
@@ -97,33 +147,48 @@
     </button>
 
     <div id="questions-area"></div>
-<div id="student-entry-area"></div>
+</div><div id="grading-panel" style="display:none;"><div id="student-entry-area"></div></div>
+</section>
 </section>
 
+<section id="saved-exams-page" class="emy-page" style="display:none;">
 <section id="saved-exams-area" class="message-card">
     <h2>الامتحانات المحفوظة</h2>
     <div id="saved-exams-list"></div>
 </section>
+</section>
 
+<section id="analysis-page" class="emy-page" style="display:none;">
 <section id="analysis-area" class="message-card" style="display:none;">
 
     <h2>تحليل نتائج الامتحانات</h2>
-
-    <p>اختاري الامتحان الذي تريدين تحليل نتائجه.</p>
-
-    <div class="report-actions">
+    <div class="section-tabs">
+      <button class="inner-tab active" onclick="openAnalysisSubtab('choose')">اختيار الامتحان</button>
+      <button class="inner-tab" onclick="openAnalysisSubtab('results')">التحليل والتقارير</button>
+    </div>
+    <div id="analysis-choose-panel">
+      <p>اختاري الامتحان الذي تريدين تحليل نتائجه.</p>
+      <div id="analysis-exams-list"></div>
+    </div>
+    <div id="analysis-results-panel" style="display:none;">
+      <div class="report-actions">
         <button onclick="exportCurrentExamExcel()">تصدير Excel</button>
         <button onclick="printCurrentExamReport()">طباعة التقرير / حفظ PDF</button>
+      </div>
+      <div id="analysis-results"></div>
     </div>
 
-    <div id="analysis-exams-list"></div>
-
-    <div id="analysis-results"></div>
-
+</section>
 </section>
 
+<section id="activities-page" class="emy-page" style="display:none;">
 <section id="activities-area" class="message-card" style="display:none;">
-    <h2>إنشاء الأنشطة التعليمية</h2>
+    <h2>الأنشطة التعليمية</h2>
+    <div class="section-tabs">
+      <button class="inner-tab active" onclick="openActivitiesSubtab('create')">إنشاء نشاط</button>
+      <button class="inner-tab" onclick="openActivitiesSubtab('saved')">الأنشطة المحفوظة</button>
+    </div>
+    <div id="activity-create-panel">
     <p>أنشئي ورقة عمل أو نشاطًا تعليميًا، واحفظيه لتعديله أو طباعته لاحقًا.</p>
 
     <div id="activity-editor">
@@ -161,11 +226,12 @@
     </div>
 
     <div id="activity-preview" class="activity-preview" style="display:none;"></div>
-    <h3 class="activity-list-title">الأنشطة المحفوظة</h3>
-    <div id="saved-activities-list"></div>
+    </div><div id="activity-saved-panel" style="display:none;"><h3 class="activity-list-title">الأنشطة المحفوظة</h3>
+    <div id="saved-activities-list"></div></div>
+</section>
 </section>
 
-
+<section id="tables-page" class="emy-page" style="display:none;">
 <section id="tables-area" class="message-card" style="display:none;">
     <h2>الجداول والتقارير</h2>
     <p>أنشئي جداولك الخاصة أو استخرجي جدولًا تلقائيًا من نتائج امتحان محفوظ.</p>
@@ -173,6 +239,7 @@
     <div class="table-mode-actions">
         <button type="button" onclick="showGeneralTable()">إنشاء جدول عام</button>
         <button type="button" class="secondary-button" onclick="showExamTable()">جدول نتائج امتحان</button>
+        <button type="button" class="secondary-button" onclick="showSavedTables()">الجداول المحفوظة</button>
     </div>
 
     <div id="general-table-area" class="table-panel" style="display:none;">
@@ -208,8 +275,11 @@
             <button type="button" class="secondary-button" onclick="exportCustomTableExcel()">تصدير Excel</button>
             <button type="button" class="secondary-button" onclick="newCustomTable()">جدول جديد</button>
         </div>
+</div>
 
-        <h4 class="table-list-title">الجداول المحفوظة</h4>
+    <div id="saved-tables-area" class="table-panel" style="display:none;">
+        <h3>الجداول المحفوظة</h3>
+        <p>تجدين هنا الجداول التي حفظتِها سابقًا، ويمكنك فتحها وتعديلها أو طباعتها أو حذفها.</p>
         <div id="saved-custom-tables"></div>
     </div>
 
@@ -228,29 +298,19 @@
     </div>
 </section>
 
-        <section class="message-card">
-            <div class="message-heading">
-                <span>♡</span>
-                <h2> إلى مس إيمان</h2>
-                <small>قراءة فقط</small>
-            </div>
 
-            <p id="teacher-message">
-
-    
-    مس، بحبك يا منيرة دربي الدراسي،
-    لله دركِ يا ...
-</p>
-        </section>
-
+      </section>
+      </div>
+    </div>
     </main>
 
     <footer>
         مساعد المعلمة ♡
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-    <script src="app.js"></script>
+    <script src="auth.js"></script>
 
 </body>
 </html>
